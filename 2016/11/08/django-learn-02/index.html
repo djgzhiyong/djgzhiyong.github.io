@@ -1,0 +1,693 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="django," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.2" />
+
+
+
+
+
+
+<meta name="description" content="django学习02—视图模板基于 python 2.7 和 django 1.10
+上回的django hello world 我们对 django 的简洁快速有了初步的认识这回我们利用 django 的视图模板创建我们的第一个html网页
+依旧使用 Atom 打开我们上回第一次创建的 myproject 工程
+1.在views.py中创建一个视图函数 index
+关于 template_nam">
+<meta property="og:type" content="article">
+<meta property="og:title" content="django_learn_02">
+<meta property="og:url" content="http://djgzhiyong.github.io/2016/11/08/django-learn-02/index.html">
+<meta property="og:site_name" content="叮咚叮咚">
+<meta property="og:description" content="django学习02—视图模板基于 python 2.7 和 django 1.10
+上回的django hello world 我们对 django 的简洁快速有了初步的认识这回我们利用 django 的视图模板创建我们的第一个html网页
+依旧使用 Atom 打开我们上回第一次创建的 myproject 工程
+1.在views.py中创建一个视图函数 index
+关于 template_nam">
+<meta property="og:image" content="http://djgzhiyong.github.io/images/django-learn/02/01.png">
+<meta property="og:image" content="http://djgzhiyong.github.io/images/django-learn/02/02.png">
+<meta property="og:image" content="http://djgzhiyong.github.io/images/django-learn/02/03.png">
+<meta property="og:image" content="http://djgzhiyong.github.io/images/django-learn/02/04.png">
+<meta property="og:image" content="http://djgzhiyong.github.io/images/django-learn/02/05.png">
+<meta property="og:image" content="http://djgzhiyong.github.io/images/django-learn/02/06.png">
+<meta property="og:image" content="http://djgzhiyong.github.io/images/django-learn/02/07.png">
+<meta property="og:image" content="http://djgzhiyong.github.io/images/django-learn/02/08.png">
+<meta property="og:image" content="http://djgzhiyong.github.io/images/django-learn/02/09.png">
+<meta property="og:image" content="http://djgzhiyong.github.io/images/django-learn/02/10.png">
+<meta property="og:image" content="http://djgzhiyong.github.io/images/django-learn/02/11.png">
+<meta property="og:updated_time" content="2016-11-21T08:35:28.870Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="django_learn_02">
+<meta name="twitter:description" content="django学习02—视图模板基于 python 2.7 和 django 1.10
+上回的django hello world 我们对 django 的简洁快速有了初步的认识这回我们利用 django 的视图模板创建我们的第一个html网页
+依旧使用 Atom 打开我们上回第一次创建的 myproject 工程
+1.在views.py中创建一个视图函数 index
+关于 template_nam">
+<meta name="twitter:image" content="http://djgzhiyong.github.io/images/django-learn/02/01.png">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="http://djgzhiyong.github.io/2016/11/08/django-learn-02/"/>
+
+
+  <title> django_learn_02 | 叮咚叮咚 </title>
+</head>
+
+<body itemscope itemtype="//schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?000b2f918aad03f7e9a1f05cea88a62d";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="//schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">叮咚叮咚</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">叮咚叮咚的blog</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="//schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                django_learn_02
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-11-08T11:46:39+08:00" content="2016-11-08">
+              2016-11-08
+            </time>
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/11/08/django-learn-02/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/11/08/django-learn-02/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="django学习02—视图模板"><a href="#django学习02—视图模板" class="headerlink" title="django学习02—视图模板"></a>django学习02—视图模板</h1><p><em>基于 python 2.7 和 django 1.10</em></p>
+<p>上回的django hello world 我们对 django 的简洁快速有了初步的认识<br>这回我们利用 django 的视图模板创建我们的第一个html网页</p>
+<p>依旧使用 Atom 打开我们上回第一次创建的 myproject 工程<br><img src="/images/django-learn/02/01.png" alt=""></p>
+<h2 id="1-在views-py中创建一个视图函数-index"><a href="#1-在views-py中创建一个视图函数-index" class="headerlink" title="1.在views.py中创建一个视图函数 index"></a>1.在views.py中创建一个视图函数 index</h2><p><img src="/images/django-learn/02/02.png" alt=""></p>
+<p>关于 template_name 视图模板名称 firstapp/index.html 需要在我们的应用 firstapp 的 templates 目录中创建之（其实也可以直接在templates目录中创建index.html。增加 firstapp 应用名称目录的原因是，如果同时存在多个应用及多个同名的模板文件时，将出现模板文件名称冲突）</p>
+<h2 id="2-在-firstapp-中添加模板文件-index-html"><a href="#2-在-firstapp-中添加模板文件-index-html" class="headerlink" title="2.在 firstapp 中添加模板文件 index.html"></a>2.在 firstapp 中添加模板文件 index.html</h2><p>我们依次在 firstapp 应用目录下添加 templates、firstapp目录和 index.html文件。完成后如下<br><img src="/images/django-learn/02/03.png" alt=""></p>
+<h2 id="3-配置index视图的映射uri"><a href="#3-配置index视图的映射uri" class="headerlink" title="3.配置index视图的映射uri"></a>3.配置index视图的映射uri</h2><p>上回我们直接在 myproject项目的 urls.py 文件中添加了我们第一个 hello world 视图函数的 uri 映射，这样应用（firstapp）和项目(myproject)的uri映射变得混乱。不利于应用的项目之间的解耦。<br>于是我们需要移除 myproject urls.py 中的视图配置，转而在我们视图所在的应用目录下创建创建视图函数和 uri 之间的映射。<br>现在我们在应用 firstapp 目录下创建视图映射 urls.py 文件，用来映射视图和uri之间的关系<br><img src="/images/django-learn/02/04.png" alt=""><br><img src="/images/django-learn/02/05.png" alt=""></p>
+<p>关于视图映射的匹配，我们在项目 myproject 的 urls.py 文件中通过正则表达式配置了任意字符开头的 uri 即进入应用  firstapp 的 urls.py 文件中查找。<br>同时在 firstapp 的 urls.py文件中配置了空 uri 映射 views.helloworld 视图函数，index 字符开始和结尾隐射 views.index 函数<br><img src="/images/django-learn/02/06.png" alt=""><br><img src="/images/django-learn/02/07.png" alt=""></p>
+<h2 id="4-启动浏览器检查配置是否正确"><a href="#4-启动浏览器检查配置是否正确" class="headerlink" title="4.启动浏览器检查配置是否正确"></a>4.启动浏览器检查配置是否正确</h2><p>完成了以上的配置我们就可以在浏览器中查看配置的内容是否正确，和上次内容一样，我们启动开发服务器—控制台进入 myproject 目录下运行 python manage.py runserver 开启服务器，浏览器输入 <a href="http://127.0.0.1:8000/" target="_blank" rel="external">http://127.0.0.1:8000/</a> 访问上次内容的 helloworld 视图，<a href="http://127.0.0.1:8000/index" target="_blank" rel="external">http://127.0.0.1:8000/index</a> 访问我们新添加的 index 模板视图</p>
+<p>helloworld 视图一切正常<br><img src="/images/django-learn/02/08.png" alt=""></p>
+<p>然而新添加的 index 模板视图却……<br><img src="/images/django-learn/02/09.png" alt=""></p>
+<p>我们悲伤的看到了 django 有史以来给我们的第一个错误页面，这个错误告诉我们应用 firstapp 下的视图模板 index.html 没有被找到。可是我们明明添加了，这不完全就是坑爹吗…..。作为初学者的我感觉很崩溃，google 、百度 、外加查阅 django 的官方文档之后才知道原来是我们的应用没有被安装到我们的项目 myproject 中，我们只是在项目的 urls.py 中指明了应用的视图映射而已，所以模板文件没有被找到</p>
+<h2 id="5-安装应用到项目"><a href="#5-安装应用到项目" class="headerlink" title="5.安装应用到项目"></a>5.安装应用到项目</h2><p>打开项目的 setting.py 文件，一个 django 项目的整体配置位于此文件中，我们找到 INSTALLED_APPS 这一项配置，将我们的应用安装到项目中<br><img src="/images/django-learn/02/10.png" alt=""></p>
+<p>安装完毕之后，我们再次访问 <a href="http://127.0.0.1:8000/index" target="_blank" rel="external">http://127.0.0.1:8000/index</a> 查看是否成功<br><img src="/images/django-learn/02/11.png" alt=""><br>终于成功访问到了我们第一个视图模板 index.html 渲染出来的页面</p>
+<p>通过应用的安装我们初探了到应用和项目之间微妙的关键，一个项目负责所有应用的管理、配置，每个应用功能独立，和项目之前就像一个插座，可快速复用、随时插拔而这也紧紧是 django 强大的另一个点….</p>
+<p>代码下载地址:<a href="https://github.com/djgzhiyong/django-leran" target="_blank" rel="external">https://github.com/djgzhiyong/django-leran</a></p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/django/" rel="tag">#django</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/11/02/django-learn-01/" rel="next" title="django_learn_01">
+                <i class="fa fa-chevron-left"></i> django_learn_01
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/11/14/django-learn-03/" rel="prev" title="django-learn-03">
+                django-learn-03 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2016/11/08/django-learn-02/"
+           data-title="django_learn_02" data-url="http://djgzhiyong.github.io/2016/11/08/django-learn-02/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="//schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.png"
+               alt="djgzhiyong@gmail.com" />
+          <p class="site-author-name" itemprop="name">djgzhiyong@gmail.com</p>
+          <p class="site-description motion-element" itemprop="description"></p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">7</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">3</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/djgzhiyong" target="_blank" title="Weibo">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  Weibo
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/djgzhiyong/" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              Links
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://zhibimo.com/explore/books" title="知笔墨" target="_blank">知笔墨</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.geekonomics10000.com/" title="万维刚 blog" target="_blank">万维刚 blog</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.fangling.xin/" title="房陵君博客" target="_blank">房陵君博客</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#django学习02—视图模板"><span class="nav-number">1.</span> <span class="nav-text">django学习02—视图模板</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-在views-py中创建一个视图函数-index"><span class="nav-number">1.1.</span> <span class="nav-text">1.在views.py中创建一个视图函数 index</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-在-firstapp-中添加模板文件-index-html"><span class="nav-number">1.2.</span> <span class="nav-text">2.在 firstapp 中添加模板文件 index.html</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-配置index视图的映射uri"><span class="nav-number">1.3.</span> <span class="nav-text">3.配置index视图的映射uri</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-启动浏览器检查配置是否正确"><span class="nav-number">1.4.</span> <span class="nav-text">4.启动浏览器检查配置是否正确</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-安装应用到项目"><span class="nav-number">1.5.</span> <span class="nav-text">5.安装应用到项目</span></a></li></ol></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <a class="author" href="mailto:djgzhiyong@gmail.com" itemprop="copyrightHolder">djgzhiyong@gmail.com</a>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.2"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.0.2"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.0.2"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.2"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"djgzhiyong"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+    <script src="/lib/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+    <script src="/js/src/hook-duoshuo.js"></script>
+  
+
+
+
+
+
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+
+</body>
+</html>

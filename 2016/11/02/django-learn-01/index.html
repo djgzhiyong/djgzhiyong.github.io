@@ -1,0 +1,671 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="django," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.2" />
+
+
+
+
+
+
+<meta name="description" content="django学习01—Hello World基于 python 2.7 和 django 1.10
+犹豫了许久要不要开始写下 django 的学习过程，作为一个初学者，在各方面技术还不是很了解的情况下贸然行动是不是会走弯路，会不会误导别人。在深入思索了3秒钟之后，我豁然开朗、茅塞顿开。有的时候行动才是最重要的，光说不练有什么用，这就是我的学习过程，写下来作为记录，见证自己的学习过程，走走弯路，多多">
+<meta property="og:type" content="article">
+<meta property="og:title" content="django_learn_01">
+<meta property="og:url" content="http://djgzhiyong.github.io/2016/11/02/django-learn-01/index.html">
+<meta property="og:site_name" content="叮咚叮咚">
+<meta property="og:description" content="django学习01—Hello World基于 python 2.7 和 django 1.10
+犹豫了许久要不要开始写下 django 的学习过程，作为一个初学者，在各方面技术还不是很了解的情况下贸然行动是不是会走弯路，会不会误导别人。在深入思索了3秒钟之后，我豁然开朗、茅塞顿开。有的时候行动才是最重要的，光说不练有什么用，这就是我的学习过程，写下来作为记录，见证自己的学习过程，走走弯路，多多">
+<meta property="og:image" content="http://djgzhiyong.github.io/images/django-learn/01/01.png">
+<meta property="og:image" content="http://djgzhiyong.github.io/images/django-learn/01/02.png">
+<meta property="og:image" content="http://djgzhiyong.github.io/images/django-learn/01/03.png">
+<meta property="og:image" content="http://djgzhiyong.github.io/images/django-learn/01/04.png">
+<meta property="og:image" content="http://djgzhiyong.github.io/images/django-learn/01/05.png">
+<meta property="og:image" content="http://djgzhiyong.github.io/images/django-learn/01/06.png">
+<meta property="og:image" content="http://djgzhiyong.github.io/images/django-learn/01/07.png">
+<meta property="og:updated_time" content="2016-12-08T09:54:52.491Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="django_learn_01">
+<meta name="twitter:description" content="django学习01—Hello World基于 python 2.7 和 django 1.10
+犹豫了许久要不要开始写下 django 的学习过程，作为一个初学者，在各方面技术还不是很了解的情况下贸然行动是不是会走弯路，会不会误导别人。在深入思索了3秒钟之后，我豁然开朗、茅塞顿开。有的时候行动才是最重要的，光说不练有什么用，这就是我的学习过程，写下来作为记录，见证自己的学习过程，走走弯路，多多">
+<meta name="twitter:image" content="http://djgzhiyong.github.io/images/django-learn/01/01.png">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="http://djgzhiyong.github.io/2016/11/02/django-learn-01/"/>
+
+
+  <title> django_learn_01 | 叮咚叮咚 </title>
+</head>
+
+<body itemscope itemtype="//schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?000b2f918aad03f7e9a1f05cea88a62d";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="//schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">叮咚叮咚</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">叮咚叮咚的blog</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="//schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                django_learn_01
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-11-02T11:30:53+08:00" content="2016-11-02">
+              2016-11-02
+            </time>
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/11/02/django-learn-01/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/11/02/django-learn-01/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="django学习01—Hello-World"><a href="#django学习01—Hello-World" class="headerlink" title="django学习01—Hello World"></a>django学习01—Hello World</h1><p><em>基于 python 2.7 和 django 1.10</em></p>
+<p><em>犹豫了许久要不要开始写下 django 的学习过程，作为一个初学者，在各方面技术还不是很了解的情况下贸然行动是不是会走弯路，会不会误导别人。在深入思索了3秒钟之后，我豁然开朗、茅塞顿开。有的时候行动才是最重要的，光说不练有什么用，这就是我的学习过程，写下来作为记录，见证自己的学习过程，走走弯路，多多练习…这比什么都好! ^_^</em></p>
+<h2 id="1-创建django项目"><a href="#1-创建django项目" class="headerlink" title="1.创建django项目"></a>1.创建django项目</h2><p>在命令行下输入django-admin startproject myproject （myproject即为创建的项目名称）<br>此时无任何消息输入即成功创建django项目<br>进入创建成功的项目 myproject 目录下<br>输入 python manage.py startapp firstapp 创建django应用firstapp</p>
+<p><img src="/images/django-learn/01/01.png" alt=""></p>
+<h2 id="2-使用-Atom-来进行开发"><a href="#2-使用-Atom-来进行开发" class="headerlink" title="2.使用 Atom 来进行开发"></a>2.使用 Atom 来进行开发</h2><p>Atom 是 github 推出的一款完全免费的编辑器，各种丰富的插件拓展，推荐使用。<br>下载地址 <a href="https://atom.io/" target="_blank" rel="external">https://atom.io/</a><br><img src="/images/django-learn/01/02.png" alt=""></p>
+<p>使用 atom 打开创建的 myproject 项目文件夹<br><img src="/images/django-learn/01/03.png" alt=""></p>
+<h2 id="3-开始第一次编写"><a href="#3-开始第一次编写" class="headerlink" title="3.开始第一次编写"></a>3.开始第一次编写</h2><p>打开firstapp应用下的views.py文件，添加如下代码<br><img src="/images/django-learn/01/04.png" alt=""><br>添加完成以上代码，你就创建了django的第一个视图函数helloworld，该函数将直接向浏览器输出一段 h1 标签所包裹的字符串</p>
+<h2 id="4-映射视图函数helloworld"><a href="#4-映射视图函数helloworld" class="headerlink" title="4.映射视图函数helloworld"></a>4.映射视图函数helloworld</h2><p>为了使浏览器能够访问helloworld这个视图函数，我们需要在项目 myproject 的 urls.py 文件中映射一个uri到这个视图函数<br>使用 atom 打开 myproject 的 urls.py 文件，添加如下内容<br><img src="/images/django-learn/01/05.png" alt=""></p>
+<h2 id="5-启动开发服务器，检验劳动成果"><a href="#5-启动开发服务器，检验劳动成果" class="headerlink" title="5.启动开发服务器，检验劳动成果"></a>5.启动开发服务器，检验劳动成果</h2><p>完成了上述4步的操作就成功创建的第一个django helloworld 视图<br>此时使用控制台进入 myproject 目录下，执行 python manage.py runserver 启动开发服务器查看劳动成果<br><img src="/images/django-learn/01/06.png" alt=""><br><img src="/images/django-learn/01/07.png" alt=""></p>
+<p>django的简洁令人惊叹，它如此的简单、快速，而这还只是冰山一角…</p>
+<p>代码下载地址:<a href="https://github.com/djgzhiyong/django-leran" target="_blank" rel="external">https://github.com/djgzhiyong/django-leran</a></p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/django/" rel="tag">#django</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/11/08/django-learn-02/" rel="prev" title="django_learn_02">
+                django_learn_02 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2016/11/02/django-learn-01/"
+           data-title="django_learn_01" data-url="http://djgzhiyong.github.io/2016/11/02/django-learn-01/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="//schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.png"
+               alt="djgzhiyong@gmail.com" />
+          <p class="site-author-name" itemprop="name">djgzhiyong@gmail.com</p>
+          <p class="site-description motion-element" itemprop="description"></p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">7</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">3</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/djgzhiyong" target="_blank" title="Weibo">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  Weibo
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/djgzhiyong/" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              Links
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://zhibimo.com/explore/books" title="知笔墨" target="_blank">知笔墨</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.geekonomics10000.com/" title="万维刚 blog" target="_blank">万维刚 blog</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.fangling.xin/" title="房陵君博客" target="_blank">房陵君博客</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#django学习01—Hello-World"><span class="nav-number">1.</span> <span class="nav-text">django学习01—Hello World</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-创建django项目"><span class="nav-number">1.1.</span> <span class="nav-text">1.创建django项目</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-使用-Atom-来进行开发"><span class="nav-number">1.2.</span> <span class="nav-text">2.使用 Atom 来进行开发</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-开始第一次编写"><span class="nav-number">1.3.</span> <span class="nav-text">3.开始第一次编写</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-映射视图函数helloworld"><span class="nav-number">1.4.</span> <span class="nav-text">4.映射视图函数helloworld</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-启动开发服务器，检验劳动成果"><span class="nav-number">1.5.</span> <span class="nav-text">5.启动开发服务器，检验劳动成果</span></a></li></ol></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <a class="author" href="mailto:djgzhiyong@gmail.com" itemprop="copyrightHolder">djgzhiyong@gmail.com</a>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.2"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.0.2"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.0.2"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.2"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"djgzhiyong"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+    <script src="/lib/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+    <script src="/js/src/hook-duoshuo.js"></script>
+  
+
+
+
+
+
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+
+</body>
+</html>

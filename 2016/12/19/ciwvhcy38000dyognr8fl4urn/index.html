@@ -1,0 +1,679 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="django博客," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.2" />
+
+
+
+
+
+
+<meta name="description" content="基于 python 2.7 和 django 1.10
+前面5个章节的简述，我们对 django 的基本用法有了初步的了解，从现在开始我们尝试使用 django 编写一个 blog 平台，来更深入的了解 django 的强大。为了使我们的第一个项目有点那么回事，页面不会那么low，我们需要用 bootstrap 来美化下我们的页面，可能需要修改下基本的 CSS 样式，使他更符合我们的意思。还会使用">
+<meta property="og:type" content="article">
+<meta property="og:title" content="django博客01-环境搭建">
+<meta property="og:url" content="http://djgzhiyong.me/2016/12/19/ciwvhcy38000dyognr8fl4urn/index.html">
+<meta property="og:site_name" content="叮咚叮咚">
+<meta property="og:description" content="基于 python 2.7 和 django 1.10
+前面5个章节的简述，我们对 django 的基本用法有了初步的了解，从现在开始我们尝试使用 django 编写一个 blog 平台，来更深入的了解 django 的强大。为了使我们的第一个项目有点那么回事，页面不会那么low，我们需要用 bootstrap 来美化下我们的页面，可能需要修改下基本的 CSS 样式，使他更符合我们的意思。还会使用">
+<meta property="og:image" content="http://djgzhiyong.me/images/django-blog/01/01.png">
+<meta property="og:image" content="http://djgzhiyong.me/images/django-blog/01/02.png">
+<meta property="og:image" content="http://djgzhiyong.me/images/django-blog/01/03.png">
+<meta property="og:image" content="http://djgzhiyong.me/images/django-blog/01/04.png">
+<meta property="og:image" content="http://djgzhiyong.me/images/django-blog/01/05.png">
+<meta property="og:image" content="http://djgzhiyong.me/images/django-blog/01/06.png">
+<meta property="og:updated_time" content="2016-12-19T05:11:26.354Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="django博客01-环境搭建">
+<meta name="twitter:description" content="基于 python 2.7 和 django 1.10
+前面5个章节的简述，我们对 django 的基本用法有了初步的了解，从现在开始我们尝试使用 django 编写一个 blog 平台，来更深入的了解 django 的强大。为了使我们的第一个项目有点那么回事，页面不会那么low，我们需要用 bootstrap 来美化下我们的页面，可能需要修改下基本的 CSS 样式，使他更符合我们的意思。还会使用">
+<meta name="twitter:image" content="http://djgzhiyong.me/images/django-blog/01/01.png">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="http://djgzhiyong.me/2016/12/19/ciwvhcy38000dyognr8fl4urn/"/>
+
+
+  <title> django博客01-环境搭建 | 叮咚叮咚 </title>
+</head>
+
+<body itemscope itemtype="//schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?000b2f918aad03f7e9a1f05cea88a62d";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="//schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">叮咚叮咚</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">叮咚叮咚的blog</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="//schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                django博客01-环境搭建
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-12-19T10:38:57+08:00" content="2016-12-19">
+              2016-12-19
+            </time>
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/12/19/ciwvhcy38000dyognr8fl4urn/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/12/19/ciwvhcy38000dyognr8fl4urn/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><em>基于 python 2.7 和 django 1.10</em></p>
+<p>前面5个章节的简述，我们对 django 的基本用法有了初步的了解，从现在开始我们尝试使用 django 编写一个 blog 平台，来更深入的了解 django 的强大。为了使我们的第一个项目有点那么回事，页面不会那么low，我们需要用 bootstrap 来美化下我们的页面，可能需要修改下基本的 CSS 样式，使他更符合我们的意思。还会使用 javascript 来做基本的表单验证，以避免不必要的表单提交。下面就开始…</p>
+<h2 id="1-新建-blog-应用"><a href="#1-新建-blog-应用" class="headerlink" title="1.新建 blog 应用"></a>1.新建 blog 应用</h2><p>我们继续在前面章节的基础上编写我们的 blog 应用，在命令行下进入我们的 myproject 项目，输入命令 python manage.py startapp blog 来创建 blog 应用，完成后用 atom 打开 myproject 项目，在项目的 settings.py 文件中安装我们新建的 blog 应用，完成后如下</p>
+<p><img src="/images/django-blog/01/01.png" alt=""></p>
+<h2 id="2-引入-bootstrap-和-jquery"><a href="#2-引入-bootstrap-和-jquery" class="headerlink" title="2.引入 bootstrap 和 jquery"></a>2.引入 bootstrap 和 jquery</h2><p>创建完成 blog 应用之后，我们开始引入 bootstrap 资源。<br>bootstrap 获取地址 <a href="http://v3.bootcss.com/" target="_blank" rel="external">http://v3.bootcss.com/</a><br>这个站点有全部的 bootstrap 学习资源可获取。同时 bootstrap 依赖 jquery ，所以我们需要下载 jquery 文件，<br>jquery下载地址 <a href="https://code.jquery.com/jquery-3.1.1.min.js" target="_blank" rel="external">https://code.jquery.com/jquery-3.1.1.min.js</a></p>
+<p>下载完成之后，我们将资源添加到我们的blog项目中去，在 blog 应用文件夹下，新建 static 文件夹，拷贝我们的 js 和 css 文件到 static 文件夹下，完成后如图</p>
+<p><img src="/images/django-blog/01/02.png" alt=""></p>
+<h2 id="3-新建基础模板页面"><a href="#3-新建基础模板页面" class="headerlink" title="3.新建基础模板页面"></a>3.新建基础模板页面</h2><p>现在我们开始搭建一个基础的html页面，将我们常用的全部页面具有统一性的东西抽取到该页面中，方便我们后续的页面直接继承自该页面，提高开发效率</p>
+<p>在 blog 应用下新建 templates 视图模板目录，并在 templates 目录下再新建 blog 目录，并在此目录下新建 base.html 内容如下</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div></pre></td><td class="code"><pre><div class="line">&#123;% load static %&#125; # 加载静态资源</div><div class="line">&lt;!DOCTYPE html&gt;</div><div class="line">&lt;html lang=&quot;zh-CN&quot;&gt;</div><div class="line">  &lt;head&gt;</div><div class="line">    &lt;meta charset=&quot;utf-8&quot;&gt;</div><div class="line">    &lt;title&gt;&#123;% block title %&#125; &#123;% endblock %&#125;&lt;/title&gt; #定义待子模板填充的内容</div><div class="line">    &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1&quot;&gt;</div><div class="line">    &lt;link rel=&quot;stylesheet&quot; href=&quot;&#123;% static &apos;css/bootstrap.min.css&apos; %&#125;&quot;&gt;</div><div class="line">  &lt;/head&gt;</div><div class="line">  &lt;body&gt;</div><div class="line">    &lt;nav class=&quot;navbar navbar-inverse navbar-fixed-top&quot; role=&quot;navigation&quot;&gt;</div><div class="line">      &lt;div class=&quot;container&quot;&gt;</div><div class="line">        &lt;div class=&quot;navbar-header&quot;&gt;</div><div class="line">          &lt;a href=&quot;#&quot; class=&quot;navbar-brand&quot;&gt;Zjump博客&lt;/a&gt;</div><div class="line">        &lt;/div&gt;</div><div class="line">        &lt;div &gt;</div><div class="line">          &lt;ul class=&quot;nav navbar-nav&quot;&gt;</div><div class="line">            &lt;li class=&quot;active&quot;&gt;&lt;a href=&quot;#&quot;&gt;首页&lt;/a&gt;&lt;/li&gt;</div><div class="line">            &lt;li&gt;&lt;a href=&quot;#&quot;&gt;推荐&lt;/a&gt;&lt;/li&gt;</div><div class="line">            &lt;li&gt;&lt;a href=&quot;#&quot;&gt;我的&lt;/a&gt;&lt;/li&gt;</div><div class="line">          &lt;/ul&gt;</div><div class="line">        &lt;/div&gt;</div><div class="line">      &lt;/div&gt;</div><div class="line">    &lt;/nav&gt;</div><div class="line">    &lt;div class=&quot;container&quot;&gt;</div><div class="line">      &#123;% block content %&#125; #定义待子模板填充的视图实体</div><div class="line">      &#123;% endblock %&#125;</div><div class="line">    &lt;/div&gt;</div><div class="line">    &lt;script type=&quot;text/javascript&quot; src=&quot;&#123;% static &apos;js/jquery-3.1.1.min.js &apos; %&#125;&quot;&gt;&lt;/script&gt;</div><div class="line">    &lt;script type=&quot;text/javascript&quot; src=&quot;&#123;% static &apos;js/bootstrap.min.js &apos; %&#125;&quot;&gt;&lt;/script&gt;</div><div class="line">  &lt;/body&gt;</div><div class="line">&lt;/html&gt;</div></pre></td></tr></table></figure>
+<p>接下来新建一个 index.html 页面，继承自上面的 base.html 页面，内容如下<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">&#123;% extends &quot;blog/base.html&quot; %&#125;  # 声明继承自base.html</div><div class="line"></div><div class="line">&#123;% block title %&#125; Zjump博客 &#123;% endblock %&#125; # 填充父视图的 title 体</div><div class="line"></div><div class="line">&#123;% block content %&#125; # 填充父视图的 content 体</div><div class="line"></div><div class="line">&#123;% endblock %&#125;</div></pre></td></tr></table></figure></p>
+<p>文件结构如图</p>
+<p><img src="/images/django-blog/01/03.png" alt=""></p>
+<h2 id="4-定义视图函数并映射页面"><a href="#4-定义视图函数并映射页面" class="headerlink" title="4.定义视图函数并映射页面"></a>4.定义视图函数并映射页面</h2><p>下面通过定义视图函数和映射URL，来让外界可以访问我们的页面<br>在 blog 应用的 views.py 文件中添加 index 视图函数，该函数直接渲染并返回我们刚刚新建的 index.html 给浏览器<br><img src="/images/django-blog/01/04.png" alt=""></p>
+<p>同时我们需要定义 blog 应用的整体 url 映射文件，新建 urls.py 文件，并加入如下内容<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">from django.conf.urls import url</div><div class="line">import views</div><div class="line"></div><div class="line">urlpatterns = [</div><div class="line">    url(&quot;^$&quot;, views.index),</div><div class="line">]</div></pre></td></tr></table></figure></p>
+<p>同时映射我们的 blog urls.py 到 myproject urls.py文件中</p>
+<p><img src="/images/django-blog/01/05.png" alt=""></p>
+<p>在此请注意他们的关系，我们所有 blog 相关的 uri 映射都在blog 应用下的 urls.py 中，我们仅仅在项目的 urls.py 配置中加入了一行代码，映射所有以 blog 开头的 uri 直接进入我们的 blog &gt; urls.py 中查找</p>
+<h2 id="5-访问首页"><a href="#5-访问首页" class="headerlink" title="5.访问首页"></a>5.访问首页</h2><p>完成了全部操作之后，启动开发服务器 python manage.py runserver ，浏览器输入 <a href="http://127.0.0.1:8000/blog" target="_blank" rel="external">http://127.0.0.1:8000/blog</a> 查看页面如下，就完成了环境搭建的操作</p>
+<p><img src="/images/django-blog/01/06.png" alt=""></p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/django博客/" rel="tag">#django博客</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/12/12/ciwvhcy36000ayogn4nk6sonx/" rel="next" title="欲练神功，必先自宫">
+                <i class="fa fa-chevron-left"></i> 欲练神功，必先自宫
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2016/12/19/ciwvhcy38000dyognr8fl4urn/"
+           data-title="django博客01-环境搭建" data-url="http://djgzhiyong.me/2016/12/19/ciwvhcy38000dyognr8fl4urn/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="//schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.png"
+               alt="djgzhiyong@gmail.com" />
+          <p class="site-author-name" itemprop="name">djgzhiyong@gmail.com</p>
+          <p class="site-description motion-element" itemprop="description"></p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">8</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">4</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/djgzhiyong" target="_blank" title="Weibo">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  Weibo
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/djgzhiyong/" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              Links
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://zhibimo.com/explore/books" title="知笔墨" target="_blank">知笔墨</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.geekonomics10000.com/" title="万维刚 blog" target="_blank">万维刚 blog</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.fangling.xin/" title="房陵君博客" target="_blank">房陵君博客</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-新建-blog-应用"><span class="nav-number">1.</span> <span class="nav-text">1.新建 blog 应用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-引入-bootstrap-和-jquery"><span class="nav-number">2.</span> <span class="nav-text">2.引入 bootstrap 和 jquery</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-新建基础模板页面"><span class="nav-number">3.</span> <span class="nav-text">3.新建基础模板页面</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-定义视图函数并映射页面"><span class="nav-number">4.</span> <span class="nav-text">4.定义视图函数并映射页面</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-访问首页"><span class="nav-number">5.</span> <span class="nav-text">5.访问首页</span></a></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <a class="author" href="mailto:djgzhiyong@gmail.com" itemprop="copyrightHolder">djgzhiyong@gmail.com</a>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.2"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.0.2"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.0.2"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.2"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"djgzhiyong"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+    <script src="/lib/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+    <script src="/js/src/hook-duoshuo.js"></script>
+  
+
+
+
+
+
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+
+</body>
+</html>

@@ -1,0 +1,696 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="django," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.2" />
+
+
+
+
+
+
+<meta name="description" content="django学习04—Model基于 python 2.7 和 django 1.10
+本节来我们开始学习 django 的模型，在前3节的基础上，学习了视图函数，基本的URL配置，视图模板，对 django 有了初步的认识，现在再学习下模型，后面结合数据库一起使用。最后来写个 blog 项目练习练习废话不说了，开始学习吧…
+1.创建第一个用户模型继续用 atom 打开 myproject ，在">
+<meta property="og:type" content="article">
+<meta property="og:title" content="django-learn-04">
+<meta property="og:url" content="http://djgzhiyong.github.io/2016/11/21/django-learn-04/index.html">
+<meta property="og:site_name" content="叮咚叮咚">
+<meta property="og:description" content="django学习04—Model基于 python 2.7 和 django 1.10
+本节来我们开始学习 django 的模型，在前3节的基础上，学习了视图函数，基本的URL配置，视图模板，对 django 有了初步的认识，现在再学习下模型，后面结合数据库一起使用。最后来写个 blog 项目练习练习废话不说了，开始学习吧…
+1.创建第一个用户模型继续用 atom 打开 myproject ，在">
+<meta property="og:image" content="http://djgzhiyong.github.io/images/django-learn/04/01.png">
+<meta property="og:image" content="http://djgzhiyong.github.io/images/django-learn/04/02.png">
+<meta property="og:image" content="http://djgzhiyong.github.io/images/django-learn/04/03.png">
+<meta property="og:image" content="http://djgzhiyong.github.io/images/django-learn/04/04.png">
+<meta property="og:image" content="http://djgzhiyong.github.io/images/django-learn/04/05.png">
+<meta property="og:image" content="http://djgzhiyong.github.io/images/django-learn/04/06.png">
+<meta property="og:image" content="http://djgzhiyong.github.io/images/django-learn/04/07.png">
+<meta property="og:image" content="http://djgzhiyong.github.io/images/django-learn/04/08.png">
+<meta property="og:image" content="http://djgzhiyong.github.io/images/django-learn/04/12.png">
+<meta property="og:image" content="http://djgzhiyong.github.io/images/django-learn/04/09.png">
+<meta property="og:image" content="http://djgzhiyong.github.io/images/django-learn/04/10.png">
+<meta property="og:image" content="http://djgzhiyong.github.io/images/django-learn/04/11.png">
+<meta property="og:updated_time" content="2016-11-22T06:04:54.300Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="django-learn-04">
+<meta name="twitter:description" content="django学习04—Model基于 python 2.7 和 django 1.10
+本节来我们开始学习 django 的模型，在前3节的基础上，学习了视图函数，基本的URL配置，视图模板，对 django 有了初步的认识，现在再学习下模型，后面结合数据库一起使用。最后来写个 blog 项目练习练习废话不说了，开始学习吧…
+1.创建第一个用户模型继续用 atom 打开 myproject ，在">
+<meta name="twitter:image" content="http://djgzhiyong.github.io/images/django-learn/04/01.png">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="http://djgzhiyong.github.io/2016/11/21/django-learn-04/"/>
+
+
+  <title> django-learn-04 | 叮咚叮咚 </title>
+</head>
+
+<body itemscope itemtype="//schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?000b2f918aad03f7e9a1f05cea88a62d";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="//schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">叮咚叮咚</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">叮咚叮咚的blog</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="//schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                django-learn-04
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-11-21T13:23:09+08:00" content="2016-11-21">
+              2016-11-21
+            </time>
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/11/21/django-learn-04/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/11/21/django-learn-04/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="django学习04—Model"><a href="#django学习04—Model" class="headerlink" title="django学习04—Model"></a>django学习04—Model</h1><p><em>基于 python 2.7 和 django 1.10</em></p>
+<p>本节来我们开始学习 django 的模型，在前3节的基础上，学习了视图函数，基本的URL配置，视图模板，对 django 有了初步的认识，现在再学习下模型，后面结合数据库一起使用。最后来写个 blog 项目练习练习<br>废话不说了，开始学习吧…</p>
+<h2 id="1-创建第一个用户模型"><a href="#1-创建第一个用户模型" class="headerlink" title="1.创建第一个用户模型"></a>1.创建第一个用户模型</h2><p>继续用 atom 打开 myproject ，在 firstapp models.py 文件中创建第一个模型，由名字应该得知 django 的模型配置应该都在此文件中。在这个文件里面加入我的第一个用户模型 UserInfo<br><img src="/images/django-learn/04/01.png" alt=""></p>
+<p>在 models.py 中我们增加了第一个用户模型，其中有3个字段，对应数据库中的字段如下</p>
+<p><pre><code><br>username = models.CharField(max_length=20) — username varchar(20)<br>password = models.CharField(max_length=20) — password varchar(20)<br>age = models.IntegerField() — age integer<br></code></pre></p>
+<h2 id="2-使用数据库"><a href="#2-使用数据库" class="headerlink" title="2.使用数据库"></a>2.使用数据库</h2><p>django 支持常用的数据库Mysql、Oracle、MongoDB、Sqlite…。并且 django 环境默认搭载了一个 sqlite 数据库供开发使用，超级方便。来打开 myproject 的 settings.py 文件，定位到 DATABASES 节点看到 django 在创建项目时生成了 sqlite 数据库。真心赞<br><img src="/images/django-learn/04/02.png" alt=""></p>
+<p>数据库配置我就先跳过，等到到时候写blog项目的时候再学习，现在就使用 django 默认创建的 sqlite 数据库来学习</p>
+<h2 id="3-同步数据库"><a href="#3-同步数据库" class="headerlink" title="3.同步数据库"></a>3.同步数据库</h2><p>创建好了 UserInfo 模型现在需要将这个模型映射成一张表吧，把模型的属性映射成表中的字段吧，这是基本的ORM模式，django 也不例外。确定了以上工作，来开始同步模型和数据库吧。</p>
+<p>打开熟悉的命令行，切换到 myproject 目录下，依次执行 python manage.py makemigrations 命令来生成数据库迁移文件，执行完毕之后，发现 UserInfo 模型所在的 firstapp 应用的 migrations 目录下悄然的发送了变化，django 为他创建了一个数据库迁移文件。<br>然后我再次执行 python manage.py migrate 同步模型到数据库<br><img src="/images/django-learn/04/03.png" alt=""></p>
+<p>OK，顺利的完成了以上两步之后，我们的模型就和数据库来了一次同步的操作，模型的变化被同步到数据库中，通过数据库可视化工具来查看 django 为我们做了哪些工作…<br><img src="/images/django-learn/04/04.png" alt=""></p>
+<p>django 不负众望的为我们将 UserInfo 模型同步到了数据库中…</p>
+<h2 id="开始进行-CRUD-操作"><a href="#开始进行-CRUD-操作" class="headerlink" title="开始进行 CRUD 操作"></a>开始进行 CRUD 操作</h2><p>有了数据库之后，现在我们结合视图模板，视图函数，数据模型来进行一个基础的用户管理工作，以此先热热身，快览以下 django 模型的强大</p>
+<h3 id="1-增加用户"><a href="#1-增加用户" class="headerlink" title="1.增加用户"></a>1.增加用户</h3><p>为了实现用户的增加我们在 firstapp views.py 视图函数中加入如下代码<br><img src="/images/django-learn/04/05.png" alt=""></p>
+<p>在 firstapp templates 目录下添加我们的用户添加视图模板<br><img src="/images/django-learn/04/06.png" alt=""></p>
+<p>以上就完成了用户添加的内容</p>
+<h3 id="2-展示用户"><a href="#2-展示用户" class="headerlink" title="2.展示用户"></a>2.展示用户</h3><p>将我们添加的用户，从 sqlite 数据库中取出，返回给浏览器显示<br>在 firstapp views.py 文件中加入如下代码<br><img src="/images/django-learn/04/07.png" alt=""></p>
+<p>同样的需要在 firstapp templates 目录下添加视图用户展示视图模板，内容如下<br><img src="/images/django-learn/04/08.png" alt=""></p>
+<p>使用 django 视图模板的 for 标签迭代出用户信息来显示</p>
+<h3 id="3-删除用户"><a href="#3-删除用户" class="headerlink" title="3.删除用户"></a>3.删除用户</h3><p>通过用户的唯一id来从数据库中删除这个用户，在视图函数中加入如下代码<br><img src="/images/django-learn/04/12.png" alt=""></p>
+<p>在 firstapp views.py 中我们加入了 user_delete 函数依据传递的参数ID从数据库中获取这个对象，然后执行删除操作，完成后重定向到 user_list 重新展示所有用户信息</p>
+<h3 id="4-配置视图url映射"><a href="#4-配置视图url映射" class="headerlink" title="4.配置视图url映射"></a>4.配置视图url映射</h3><p>完成的上述步骤我们就成功的创建了用户添加、查询、删除功能，此时将视图函数 user_add 和 user_list 和 user_delete 通过 firstapp 中的 urls.py 文件映射到url供外界访问<br>打开 urls.py 文件添加如下内容<br><img src="/images/django-learn/04/09.png" alt=""></p>
+<p>在 user_delete 这个 url 映射中我们使用正则表达式的方式，直接从url中提取传递的参数映射给视图函数 firstapp views.py 的 user_delete 函数的 user_id 字段</p>
+<h3 id="5-校验成果"><a href="#5-校验成果" class="headerlink" title="5.校验成果"></a>5.校验成果</h3><p>打开浏览器输入 <a href="http://127.0.0.1:8000/user_add" target="_blank" rel="external">http://127.0.0.1:8000/user_add</a> 来添加用户，输入用户信息，点击提交按钮用户保存成功后，自动重定向到 <a href="http://127.0.0.1:8000/user_list" target="_blank" rel="external">http://127.0.0.1:8000/user_list</a> 页面，显示出我们添加的所有用户。点击删除链接，将直接删除当前行用户后重定向回 user_list 页面<br><img src="/images/django-learn/04/10.png" alt=""><br><img src="/images/django-learn/04/11.png" alt=""></p>
+<p>代码下载地址:<a href="https://github.com/djgzhiyong/django-leran" target="_blank" rel="external">https://github.com/djgzhiyong/django-leran</a></p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/django/" rel="tag">#django</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/11/14/app-01/" rel="next" title="app-云备忘录">
+                <i class="fa fa-chevron-left"></i> app-云备忘录
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/11/25/django-learn-05/" rel="prev" title="django-learn-05">
+                django-learn-05 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2016/11/21/django-learn-04/"
+           data-title="django-learn-04" data-url="http://djgzhiyong.github.io/2016/11/21/django-learn-04/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="//schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.png"
+               alt="djgzhiyong@gmail.com" />
+          <p class="site-author-name" itemprop="name">djgzhiyong@gmail.com</p>
+          <p class="site-description motion-element" itemprop="description"></p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">7</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">3</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/djgzhiyong" target="_blank" title="Weibo">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  Weibo
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/djgzhiyong/" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              Links
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://zhibimo.com/explore/books" title="知笔墨" target="_blank">知笔墨</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.geekonomics10000.com/" title="万维刚 blog" target="_blank">万维刚 blog</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.fangling.xin/" title="房陵君博客" target="_blank">房陵君博客</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#django学习04—Model"><span class="nav-number">1.</span> <span class="nav-text">django学习04—Model</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-创建第一个用户模型"><span class="nav-number">1.1.</span> <span class="nav-text">1.创建第一个用户模型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-使用数据库"><span class="nav-number">1.2.</span> <span class="nav-text">2.使用数据库</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-同步数据库"><span class="nav-number">1.3.</span> <span class="nav-text">3.同步数据库</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#开始进行-CRUD-操作"><span class="nav-number">1.4.</span> <span class="nav-text">开始进行 CRUD 操作</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-增加用户"><span class="nav-number">1.4.1.</span> <span class="nav-text">1.增加用户</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-展示用户"><span class="nav-number">1.4.2.</span> <span class="nav-text">2.展示用户</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-删除用户"><span class="nav-number">1.4.3.</span> <span class="nav-text">3.删除用户</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-配置视图url映射"><span class="nav-number">1.4.4.</span> <span class="nav-text">4.配置视图url映射</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-校验成果"><span class="nav-number">1.4.5.</span> <span class="nav-text">5.校验成果</span></a></li></ol></li></ol></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <a class="author" href="mailto:djgzhiyong@gmail.com" itemprop="copyrightHolder">djgzhiyong@gmail.com</a>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.2"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.0.2"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.0.2"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.2"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"djgzhiyong"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+    <script src="/lib/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+    <script src="/js/src/hook-duoshuo.js"></script>
+  
+
+
+
+
+
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+
+</body>
+</html>

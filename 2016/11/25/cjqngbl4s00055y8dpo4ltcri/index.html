@@ -1,0 +1,870 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
+
+<link rel="stylesheet" href="/css/main.css?v=6.7.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon-32.png?v=6.7.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32.png?v=6.7.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16.png?v=6.7.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.7.0" color="#222">
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '6.7.0',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="基于 python 2.7 和 django 1.10 说起后台管理，是一个完整的 web 项目不可获缺的部分。我们在后台实现对用户信息的增删改查，对业务数据的查询、整理和统计。由于功能单一（无非就是增删改查），功能类似。在使用其他语言的编写web后台时，在没有好的方案的情况下，只得从0开始写管理后，面对这样的无技术含量的事情，怎么能如此低效呢？而 django 的一大杀器就是自动生成管理后台，这">
+<meta name="keywords" content="django">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Django学习05---Admin后台">
+<meta property="og:url" content="https://djgzhiyong.github.io/2016/11/25/cjqngbl4s00055y8dpo4ltcri/index.html">
+<meta property="og:site_name" content="叮咚叮咚">
+<meta property="og:description" content="基于 python 2.7 和 django 1.10 说起后台管理，是一个完整的 web 项目不可获缺的部分。我们在后台实现对用户信息的增删改查，对业务数据的查询、整理和统计。由于功能单一（无非就是增删改查），功能类似。在使用其他语言的编写web后台时，在没有好的方案的情况下，只得从0开始写管理后，面对这样的无技术含量的事情，怎么能如此低效呢？而 django 的一大杀器就是自动生成管理后台，这">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://djgzhiyong.github.io/images/django-learn/05/01.png">
+<meta property="og:image" content="https://djgzhiyong.github.io/images/django-learn/05/02.png">
+<meta property="og:image" content="https://djgzhiyong.github.io/images/django-learn/05/03.png">
+<meta property="og:image" content="https://djgzhiyong.github.io/images/django-learn/05/04.png">
+<meta property="og:image" content="https://djgzhiyong.github.io/images/django-learn/05/05.png">
+<meta property="og:image" content="https://djgzhiyong.github.io/images/django-learn/05/06.png">
+<meta property="og:image" content="https://djgzhiyong.github.io/images/django-learn/05/07.png">
+<meta property="og:image" content="https://djgzhiyong.github.io/images/phiz/kengdie.jpg">
+<meta property="og:image" content="https://djgzhiyong.github.io/images/django-learn/05/08.png">
+<meta property="og:image" content="https://djgzhiyong.github.io/images/django-learn/05/09.png">
+<meta property="og:image" content="https://djgzhiyong.github.io/images/django-learn/05/10.png">
+<meta property="og:image" content="https://djgzhiyong.github.io/images/django-learn/05/11.png">
+<meta property="og:updated_time" content="2019-01-08T07:15:58.295Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Django学习05---Admin后台">
+<meta name="twitter:description" content="基于 python 2.7 和 django 1.10 说起后台管理，是一个完整的 web 项目不可获缺的部分。我们在后台实现对用户信息的增删改查，对业务数据的查询、整理和统计。由于功能单一（无非就是增删改查），功能类似。在使用其他语言的编写web后台时，在没有好的方案的情况下，只得从0开始写管理后，面对这样的无技术含量的事情，怎么能如此低效呢？而 django 的一大杀器就是自动生成管理后台，这">
+<meta name="twitter:image" content="https://djgzhiyong.github.io/images/django-learn/05/01.png">
+
+
+
+
+
+
+  <link rel="canonical" href="https://djgzhiyong.github.io/2016/11/25/cjqngbl4s00055y8dpo4ltcri/">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>Django学习05---Admin后台 | 叮咚叮咚</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">叮咚叮咚</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <h1 class="site-subtitle" itemprop="description">叮咚叮咚的blog</h1>
+      
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+  
+  
+  
+  
+
+  
+
+  <a href="https://github.com/djgzhiyong" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewbox="0 0 250 250" style="fill: #222; color: #fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"/><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"/><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"/></svg></a>
+
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://djgzhiyong.github.io/2016/11/25/cjqngbl4s00055y8dpo4ltcri/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="djgzhiyong@gmail.com">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="叮咚叮咚">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">Django学习05---Admin后台
+
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2016-11-25 15:02:08" itemprop="dateCreated datePublished" datetime="2016-11-25T15:02:08+08:00">2016-11-25</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2019-01-08 15:15:58" itemprop="dateModified" datetime="2019-01-08T15:15:58+08:00">2019-01-08</time>
+              
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2016/11/25/cjqngbl4s00055y8dpo4ltcri/#comments" itemprop="discussionUrl">
+                  <span class="post-meta-item-text">评论数：</span> <span class="post-comments-count gitment-comments-count" data-xid="/2016/11/25/cjqngbl4s00055y8dpo4ltcri/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><em>基于 python 2.7 和 django 1.10</em></p>
+<p>说起后台管理，是一个完整的 web 项目不可获缺的部分。我们在后台实现对用户信息的增删改查，对业务数据的查询、整理和统计。由于功能单一（无非就是增删改查），功能类似。在使用其他语言的编写web后台时，在没有好的方案的情况下，只得从0开始写管理后，面对这样的无技术含量的事情，怎么能如此低效呢？而 django 的一大杀器就是自动生成管理后台，这也是我开始关注他并努力学习的目标，毕竟人生苦短呀…。闲扯到此我们这节开始初览 django 后台管理的强大、快速、便捷！</p>
+<h2 id="1-配置-注册"><a href="#1-配置-注册" class="headerlink" title="1.配置+注册"></a>1.配置+注册</h2><p>打开我们的 myproject 项目，查看 settings.py 文件中的 INSTALLED_APPS 是否打开 django 的管理应用（默认打开）。<br><img src="/images/django-learn/05/01.png" alt=""></p>
+<p>当我们创建一个 django 项目时，django 默认就为我们安装了这几个系统应用。<br>下面我们需要注册我们上节创建的模型 UserInfo 来给 django 管理后台，让他帮我们管理这个模型数据，打开 firstapp 应用的 admin.py 文件加入如下内容<br><img src="/images/django-learn/05/02.png" alt=""></p>
+<p>简单添加以上2行代码，django 就自动管理了我们的 UserInfo 模型，再也不用慢慢的敲代码了。</p>
+<h2 id="2-添加管理员"><a href="#2-添加管理员" class="headerlink" title="2.添加管理员"></a>2.添加管理员</h2><p>管理后台可不是你想登录，想登录就登录的。创建管理员和为管理员设置安全的密码是重中之重，你可不想辛苦推广转化的客户，被恶意操作给删除了吧….。下面我们需要为我们的应用 myproject 设置后台数据管理员。</p>
+<p>命令行切换到 myproject 目录下，执行 python manage.py createsuperuser 要求依次填入 管理员用户名，管理员邮箱，管理员密码，确认管理员密码。来创建后台管理员<br><img src="/images/django-learn/05/03.png" alt=""></p>
+<p>执行完毕之后，我们就可以使用 django 管理后台来管理我们的模型数据了</p>
+<h2 id="3-登录后台管理"><a href="#3-登录后台管理" class="headerlink" title="3.登录后台管理"></a>3.登录后台管理</h2><p>在我们新建一个 django 项目时，在项目所在的 urls.py 文件中，django 系统就帮我们映射好了管理后台的地址<br><img src="/images/django-learn/05/04.png" alt=""></p>
+<p>所以我们直接登录之 <a href="http://localhost:8000/admin" target="_blank" rel="noopener">http://localhost:8000/admin</a><br><img src="/images/django-learn/05/05.png" alt=""></p>
+<p>美丽的 django 管理后台在等待我们登录，输入我们刚创建的管理员账户登录之。简洁强悍的 django 管理后台出现在我们的眼前<br><img src="/images/django-learn/05/06.png" alt=""></p>
+<p>上部分是我们站点的相关管理，包括我们创建的后台管理员，管理员组，权限控制等等可在此配置，下面就是我们刚刚在 firstapp 的 admin.py 文件中注册的 UserInfo 模型，我们随便查看下先…<br><img src="/images/django-learn/05/07.png" alt=""><br>我去，直接页面崩溃了，坑爹呢这是….<br><img src="/images/phiz/kengdie.jpg" alt=""></p>
+<p>喝杯茶，休息一会儿，还是得接着看错误原因呀。通过报错日志我们得知，原因在 UserInfo 中没有 userName 这个字段。我们去 UserInfo 模型中找找看，发现我们压根没有这个字段呀，唯一的 username 字段也全部是小写，问题出在哪里呢？仔细查看发现问题出在这 ，我们定义的 <strong>unicode</strong> 方法中错误的使用了 self.userName 这个字段，导致其无法找到这个属性<br><img src="/images/django-learn/05/08.png" alt=""></p>
+<p>果断修改之<br><img src="/images/django-learn/05/09.png" alt=""></p>
+<p>修改完毕之后，回到浏览器再刷新下页面。哈哈，一切都变得美好了，我们看到了在上节我们为 UserInfo 模型添加的数据，在管理后台中我们可以执行一切增删改查操作，这一切再不用你来动手写代码了。你可以肆意把玩了…<br><img src="/images/django-learn/05/10.png" alt=""></p>
+<h2 id="4-配置相关"><a href="#4-配置相关" class="headerlink" title="4.配置相关"></a>4.配置相关</h2><p>当你使用后台时，我们发现所有的语言都是 english，这对于我这种英语过了-8级的高手来说都不是事，动动配置改成我熟悉的中文字。打开 myproject 的 settings.py 文件，定位到 LANGUAGE_CODE 标签下，改成 zh-hans<br><img src="/images/django-learn/05/11.png" alt=""></p>
+<h2 id="5-后话"><a href="#5-后话" class="headerlink" title="5.后话"></a>5.后话</h2><p>当初爱上 django 很大程度就是由于他的管理后台，在 java 或者其他语言那么多的 web 框架下，难得遇到 django 自动为你生成管理后台。试想在快速开发的今天，在互联网迭代更新快速的今天，快就是生产力，天下武功唯快不破。人生苦短我用 python 这是一句广为传颂的 python名言，而 django 将这种快速发挥到极致…</p>
+<p>代码下载地址:<a href="https://github.com/djgzhiyong/django-leran" target="_blank" rel="noopener">https://github.com/djgzhiyong/django-leran</a></p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/django/" rel="tag"># django</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/11/21/cjqngbl4r00045y8dyl6nadxy/" rel="next" title="django学习04---Model">
+                <i class="fa fa-chevron-left"></i> django学习04---Model
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+    <div class="comments" id="comments">
+      
+        <div id="gitment-container"></div>
+      
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/avatar.png" alt="djgzhiyong@gmail.com">
+            
+              <p class="site-author-name" itemprop="name">djgzhiyong@gmail.com</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">5</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    
+                    
+                      
+                    
+                    <span class="site-state-item-count">1</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://weibo.com/djgzhiyong" title="微博 &rarr; https://weibo.com/djgzhiyong" rel="noopener" target="_blank"><i class="fa fa-fw fa-weibo"></i>微博</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://space.bilibili.com/59757013" title="B站 &rarr; https://space.bilibili.com/59757013" rel="noopener" target="_blank"><i class="fa fa-fw fa-globe"></i>B站</a>
+                </span>
+              
+            </div>
+          
+
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-配置-注册"><span class="nav-text">1.配置+注册</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-添加管理员"><span class="nav-text">2.添加管理员</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-登录后台管理"><span class="nav-text">3.登录后台管理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-配置相关"><span class="nav-text">4.配置相关</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-后话"><span class="nav-text">5.后话</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">djgzhiyong@gmail.com</span>
+
+  
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.8.0</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> v6.7.0</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+
+  
+
+
+  <script src="/js/src/utils.js?v=6.7.0"></script>
+
+  <script src="/js/src/motion.js?v=6.7.0"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/src/affix.js?v=6.7.0"></script>
+
+  <script src="/js/src/schemes/pisces.js?v=6.7.0"></script>
+
+
+
+
+  
+  <script src="/js/src/scrollspy.js?v=6.7.0"></script>
+<script src="/js/src/post-details.js?v=6.7.0"></script>
+
+
+
+  
+
+
+  <script src="/js/src/bootstrap.js?v=6.7.0"></script>
+
+
+
+  
+  
+    <!-- LOCAL: You can save these files to your site and update links -->
+
+  
+  <link rel="stylesheet" href="https://aimingoo.github.io/gitmint/style/default.css">
+  <script src="https://aimingoo.github.io/gitmint/dist/gitmint.browser.js"></script>
+
+<!-- END LOCAL -->
+
+<style>
+#gitment-container a {
+  border-bottom: none;
+}
+
+</style>
+
+<script>
+  function renderGitment() {
+    var gitment = new Gitmint({
+      id: window.location.pathname,
+      owner: 'djgzhiyong',
+      repo: 'https://github.com/djgzhiyong/djgzhiyong.github.io',
+      
+        lang: '' || navigator.language || navigator.systemLanguage || navigator.userLanguage,
+      
+      oauth: {
+      
+      
+        client_secret: '8ea805dac77e7b559be31e7ace5b7936995eb149',
+      
+        client_id: '9807353348bd2b122695'
+      }
+    });
+    gitment.render('gitment-container');
+  }
+
+  
+    renderGitment();
+  
+</script>
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
